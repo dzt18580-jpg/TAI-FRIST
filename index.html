@@ -1,39 +1,65 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>我的个人主页</title>
+    <title>苔的个人主页</title>
     <style>
         body {
+            margin: 0;
             font-family: Arial;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
             text-align: center;
-            background: #f0f0f0;
         }
-        .card {
-            background: white;
-            padding: 20px;
-            margin: 50px auto;
-            width: 300px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+
+        .container {
+            margin-top: 100px;
         }
+
         img {
-            width: 100px;
+            width: 120px;
             border-radius: 50%;
+            border: 3px solid white;
+        }
+
+        h1 {
+            font-size: 40px;
+            margin: 20px 0;
+        }
+
+        p {
+            font-size: 18px;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: white;
+            color: #333;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #ddd;
         }
     </style>
 </head>
+
 <body>
 
-<div class="card">
+<div class="container">
+    <img src="me.jpg">
+
     <h1>你好，我是苔 👋</h1>
     <p>一个正在学习做游戏和网页的人</p>
 
-    <h3>我会：</h3>
-    <p>✔ 做小游戏<br>✔ 写网页</p>
-
-    <h3>联系我：</h3>
-    <p>微信 / QQ / 邮箱</p>
+    <a class="btn" href="#">联系我</a>
 </div>
+
+</body>
+</html>
 
 </body>
 </html>
