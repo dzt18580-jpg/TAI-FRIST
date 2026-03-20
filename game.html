@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>苔的第一个游戏</title>
+</head>
+<body>
+
+<canvas id="gameCanvas" width="600" height="400" style="border:1px solid black;"></canvas>
+
+<script>
+let canvas = document.getElementById("gameCanvas");
+let ctx = canvas.getContext("2d");
+
+// 玩家
+let player = {
+    x: 50,
+    y: 50,
+    size: 30,
+    speed: 5
+};
+
+// 敌人
+let enemy = {
+    x: 300,
+    y: 200,
+    size: 30,
+    speed: 2
+};
+
+// 血量
+let health = 100;
+
+// 键盘控制
+let keys = {};
+
+document.addEventListener("keydown", (e) => {
+    keys[e.key] = true;
+});
+
+document.addEventListener("keyup", (e) => {
+    keys[e.key] = false;
+});
+
+// 游戏循环
+function update() {
+    // 玩家移动
+    if (keys["w"]) player.y -= player.speed;
+    if (keys["s"]) player.y += player.speed;
+    if (keys["a"]) player.x -= player.speed;
+    if (keys["d"]) player.x += player.speed;
+
+    // 👾 敌人追踪
+    if (player.x < enemy.x) enemy.x -= enemy.speed;
+    if (player.x > enemy.x) enemy.x += enemy.speed;
+    if (player.y < enemy.y) enemy.y -= enemy.speed;
+    if (player.y > enemy.y) enemy.y += enemy.speed;
+
+// 边界限制
+if (player.x < 0) player.x = 0;
+if (player.y < 0) player.y = 0;
+if (player.x + player.size > canvas.width) player.x = canvas.width - player.size;
+if (player.y + player.size > canvas.height) player.y = canvas.height - player.size;
+
+    // 清屏
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // 画玩家
+    ctx.fillStyle = "blue";
+    ctx.fillRect(player.x, player.y, player.size, player.size);
+
+    // 画敌人
+    ctx.fillStyle = "red";
+    ctx.fillRect(enemy.x, enemy.y, enemy.size, enemy.size);
+    ctx.fillStyle = "black";
+    ctx.font = "20px Arial";
+    ctx.fillText("血量: " + health, 10, 20);
+
+// 💥 碰撞检测
+if (
+    player.x < enemy.x + enemy.size &&
+    player.x + player.size > enemy.x &&
+    player.y < enemy.y + enemy.size &&
+    player.y + player.size > enemy.y
+) {
+    health -= 1; // 每帧掉血
+
+    if (health <= 0) {
+        alert("你死了！");
+        health = 100;
+        player.x = 50;
+        player.y = 50;
+        enemy.x = 300;
+        enemy.y = 200;
+    }
+}
+
+    // 循环
+    requestAnimationFrame(update);
+}
+
+// 启动游戏
+update();
+</script>
+
+</body>
+</html>
